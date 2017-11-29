@@ -35,6 +35,10 @@ public class DempsterHandler{
 		}
 		
 	}
+	
+	public Measure getFirstMeasure() {
+		return this.measures.get(0);
+	}
 
 	private Measure accumulateMeasures(Measure measure1, Measure measure2) {
 		
