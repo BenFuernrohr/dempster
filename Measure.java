@@ -70,7 +70,7 @@ public class Measure{
 			if (valueList.get(index) == 1) {
 				//for belief of a single entry, all other positions must be "0"
 				boolean isBeliefMeasureEntry = true;
-				for (int i : valueList) {
+				for (int i=0; i<valueList.size(); i++) {
 					if (i != index && valueList.get(i) != 0) {
 						isBeliefMeasureEntry = false;
 					}
