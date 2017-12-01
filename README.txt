@@ -17,21 +17,23 @@ An example:
 DempsterHandler dempsterHandlerTest = new DempsterHandler(6);
 Measure m1 = dempsterHandlerTest.addMeasure();
 m1.addEntry(Arrays.asList(new Integer[] {1 ,1, 1, 0, 0, 0}) , 0.88f);
-dempsterHandlerTest.printAccumulatedMeasure();
+System.out.println("First measure: " + m1.toString());
 		
 Measure m2 = dempsterHandlerTest.addMeasure();
 m2.addEntry(Arrays.asList(new Integer[] {1 ,0, 1, 0, 0, 1}) , 0.45f);
 m2.addEntry(Arrays.asList(new Integer[] {0 ,1, 0, 1, 0, 0}) , 0.45f);
 		
 dempsterHandlerTest.accumulateAllMeasures();
-dempsterHandlerTest.printAccumulatedMeasure();
+System.out.println("Accumulated measures result in: " + dempsterHandlerTest.getFirstMeasure().toString());
 				
 Measure m3 = dempsterHandlerTest.addMeasure();
 m3.addEntry(Arrays.asList(new Integer[] {0 ,1, 0, 1, 1, 0}) , 0.65f);
 	
 dempsterHandlerTest.accumulateAllMeasures();
-Measure resultMeasure = dempsterHandlerTest.getFirstMeasure();
+System.out.println("Accumulated measures result in: " + dempsterHandlerTest.getFirstMeasure().toString());
 
-double belief1 = resultMeasure.calculateBelief(0);
-double plausability1 = resultMeasure.calculatePlausability(0);
-double doubt1 = resultMeasure.calculateDoubt(0);
+double belief = dempsterHandlerTest.getFirstMeasure().calculateBelief(1);
+double plausability = dempsterHandlerTest.getFirstMeasure().calculatePlausability(1);
+double doubt = dempsterHandlerTest.getFirstMeasure().calculateDoubt(1);
+
+System.out.println("Belief: \t" + belief +"\nPlausability: \t" + plausability + "\n Doubt: \t" + doubt);
