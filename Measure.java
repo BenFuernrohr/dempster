@@ -66,11 +66,12 @@ public class Measure{
 	public double calculateBelief(int index) {
 		double belief = 0.0;
 		for (MeasureEntry entry : this.entries) {
-			if (entry.getValues().get(index) == 1) {
+			List<Integer> valueList = entry.getValues();
+			if (valueList.get(index) == 1) {
 				//for belief of a single entry, all other positions must be "0"
 				boolean isBeliefMeasureEntry = true;
-				for (Integer i : entry.getValues()) {
-					if (i != index && i != 0) {
+				for (int i : valueList) {
+					if (i != index && valueList.get(i) != 0) {
 						isBeliefMeasureEntry = false;
 					}
 				}
