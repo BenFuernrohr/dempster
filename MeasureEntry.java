@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class to represent an entry within a measure. Contains a List of values (0 or 1), a fixed size and the propability of the entry.
+ * Class to represent an entry within a measure. Contains a List of values (0 or 1), a fixed size and the probability of the entry.
  */
 public class MeasureEntry{
 	
@@ -14,13 +14,13 @@ public class MeasureEntry{
 	/** List of values, containing 0s and 1s */
 	private List<Integer> values = new ArrayList<Integer>();
 	
-	/** propability of a single measure */
-	private double propability;
+	/** probability of a single measure */
+	private double probability;
 	
-	public MeasureEntry(int size, List<Integer> values, double propability) {
+	public MeasureEntry(int size, List<Integer> values, double probability) {
 		this.size = size;
 		this.values = values;
-		this.propability = propability;
+		this.probability = probability;
 	}
 
 	/** returns the List of values in the entry */
@@ -28,9 +28,9 @@ public class MeasureEntry{
 		return values;
 	}
 
-	/** returns the propability of the entry */
-	public double getPropability() {
-		return propability;
+	/** returns the probability of the entry */
+	public double getprobability() {
+		return probability;
 	}
 
 	/** sets the List of values in the entry */
@@ -38,9 +38,9 @@ public class MeasureEntry{
 		this.values = values;
 	}
 
-	/** sets the propability of the entry */
-	public void setPropability(double propability) {
-		this.propability = propability;
+	/** sets the probability of the entry */
+	public void setprobability(double probability) {
+		this.probability = probability;
 	}
 
 	public String toString() {
@@ -48,7 +48,7 @@ public class MeasureEntry{
 		for (int i = 0; i < size; i++) {
 			retString = retString + (values.get(i)+ " ");
 		}
-		retString = retString + ("Propability: " + propability + "\n");	
+		retString = retString + ("probability: " + probability + "\n");	
 		return retString;
 	}
 }

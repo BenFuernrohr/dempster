@@ -81,7 +81,7 @@ public class DempsterHandler{
 		    for (MeasureEntry entry1 : entries1){
 		    	for (MeasureEntry entry2 : entries2){
 		    		List<Integer> intersection = getIntersection(entry1, entry2);
-		    		double value = entry1.getPropability() * entry2.getPropability() * correction;
+		    		double value = entry1.getprobability() * entry2.getprobability() * correction;
 		    		if (value > 0.0d && !entryIsEmpty(intersection) &&!isOmegaEntry(intersection)) {
 		    			retMeasure.addEntry(intersection, value);
 		    		}
@@ -152,7 +152,7 @@ public class DempsterHandler{
 		{
 			for (MeasureEntry me2 : measure2.getMeasureEntrys()) {
 				if (this.entryIsEmpty(this.getIntersection(me1, me2))) {
-					conflict = conflict + (me1.getPropability() * me2.getPropability());
+					conflict = conflict + (me1.getprobability() * me2.getprobability());
 				}
 			}
 		}

@@ -31,22 +31,22 @@ public class Measure{
 	}
 	
 	/**
-	 * Add an entry for the Measure by submitting the entry-values and the propability of the entry
+	 * Add an entry for the Measure by submitting the entry-values and the probability of the entry
 	 * @param List of entrys. Should be the same size of the Measure
-	 * @param propability Propability of the entry
+	 * @param probability probability of the entry
 	 */
-	public void addEntry(List<Integer> entry, double propability) {
+	public void addEntry(List<Integer> entry, double probability) {
 		//check if entry already exists
 		for (MeasureEntry me : entries) {
 			if (isSameEntry(me.getValues(), entry)) {
-				me.setPropability(me.getPropability() + propability);
-				this.omegaEntry.setPropability(this.omegaEntry.getPropability()-propability);
+				me.setprobability(me.getprobability() + probability);
+				this.omegaEntry.setprobability(this.omegaEntry.getprobability()-probability);
 				return;
 			}			
 		}
 		//entry does not exist yet?
-		entries.add(new MeasureEntry(size, entry, propability));
-		this.omegaEntry.setPropability(this.omegaEntry.getPropability()-propability);
+		entries.add(new MeasureEntry(size, entry, probability));
+		this.omegaEntry.setprobability(this.omegaEntry.getprobability()-probability);
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class Measure{
 					}
 				}
 				if (isBeliefMeasureEntry)
-					belief = belief + entry.getPropability();
+					belief = belief + entry.getprobability();
 			}
 		}
 		return belief;
@@ -92,7 +92,7 @@ public class Measure{
 		for (MeasureEntry entry : this.entries) {
 			// sum up all the MeasuerEntrys that have a "1" at the index's position
 			if (entry.getValues().get(index) == 1) {
-				plausability = plausability + entry.getPropability();
+				plausability = plausability + entry.getprobability();
 			}
 		}
 		return plausability;
