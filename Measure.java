@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Class to represent a single measure within a Dempster-Schaefer calculation.
  * Contains multiple entries and allows the calculation of plausability, believe and doubt for alternatives
+ * @author Ben Fürnrohr
  */
 public class Measure{
 	
@@ -36,17 +37,19 @@ public class Measure{
 	 * @param probability probability of the entry
 	 */
 	public void addEntry(List<Integer> entry, double probability) {
-		//check if entry already exists
-		for (MeasureEntry me : entries) {
-			if (isSameEntry(me.getValues(), entry)) {
-				me.setprobability(me.getprobability() + probability);
-				this.omegaEntry.setprobability(this.omegaEntry.getprobability()-probability);
-				return;
-			}			
+		if (entry.size() == this.size) {			
+			//check if entry already exists
+			for (MeasureEntry me : entries) {
+				if (isSameEntry(me.getValues(), entry)) {
+					me.setProbability(me.getProbability() + probability);
+					this.omegaEntry.setProbability(this.omegaEntry.getProbability()-probability);
+					return;
+				}			
+			}
+			//entry does not exist yet?
+			entries.add(new MeasureEntry(size, entry, probability));
+			this.omegaEntry.setProbability(this.omegaEntry.getProbability()-probability);
 		}
-		//entry does not exist yet?
-		entries.add(new MeasureEntry(size, entry, probability));
-		this.omegaEntry.setprobability(this.omegaEntry.getprobability()-probability);
 	}
 
 	/**
@@ -61,22 +64,24 @@ public class Measure{
 	/**
 	 * Calculates the belief for a given index	
 	 * @param index the index 
-	 * @return the belief for the index
+	 * @return the belief for the index or 0.0 if the index is too high for the size
 	 */
 	public double calculateBelief(int index) {
 		double belief = 0.0;
-		for (MeasureEntry entry : this.entries) {
-			List<Integer> valueList = entry.getValues();
-			if (valueList.get(index) == 1) {
-				//for belief of a single entry, all other positions must be "0"
-				boolean isBeliefMeasureEntry = true;
-				for (int i=0; i<valueList.size(); i++) {
-					if (i != index && valueList.get(i) != 0) {
-						isBeliefMeasureEntry = false;
+		if(index < this.size) {
+			for (MeasureEntry entry : this.entries) {
+				List<Integer> valueList = entry.getValues();
+				if (valueList.get(index) == 1) {
+					//for belief of a single entry, all other positions must be "0"
+					boolean isBeliefMeasureEntry = true;
+					for (int i=0; i<valueList.size(); i++) {
+						if (i != index && valueList.get(i) != 0) {
+							isBeliefMeasureEntry = false;
+						}
 					}
+					if (isBeliefMeasureEntry)
+						belief = belief + entry.getProbability();
 				}
-				if (isBeliefMeasureEntry)
-					belief = belief + entry.getprobability();
 			}
 		}
 		return belief;
@@ -85,14 +90,16 @@ public class Measure{
 	/**
 	 * Calculates the plausability for a given index	
 	 * @param index the index 
-	 * @return the plausability for the index
+	 * @return the plausability for the index or 0.0 if the index is too high for the size
 	 */
 	public double calculatePlausability(int index) {
 		double plausability = 0.0;
-		for (MeasureEntry entry : this.entries) {
-			// sum up all the MeasuerEntrys that have a "1" at the index's position
-			if (entry.getValues().get(index) == 1) {
-				plausability = plausability + entry.getprobability();
+		if(index < this.size) {
+			for (MeasureEntry entry : this.entries) {
+				// sum up all the MeasuerEntrys that have a "1" at the index's position
+				if (entry.getValues().get(index) == 1) {
+					plausability = plausability + entry.getProbability();
+				}
 			}
 		}
 		return plausability;
@@ -100,7 +107,7 @@ public class Measure{
 	/**
 	 * Calculates the doubt for a given index	
 	 * @param index the index 
-	 * @return the doubt for the index
+	 * @return the doubt for the index or 1.0 of the index is too high for the size
 	 */
 	public double calculateDoubt(int index) {
 		return 1 - this.calculatePlausability(index);

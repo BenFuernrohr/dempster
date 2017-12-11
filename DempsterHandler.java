@@ -7,6 +7,7 @@ import java.util.List;
  * Class to hold a collection of {@links Measure} and allow dempster-shafer-operations.
  * Allows for adding {@link Measure}s after initialisation with a certain size and accumulation of those measures.
  * Important: there is pretty much no safety-net for misuse! If you screw up and add a measure with the wrong size or something like that you might run into errors
+ * @author Ben Fürnrohr
  */
 public class DempsterHandler{
 	
@@ -81,7 +82,7 @@ public class DempsterHandler{
 		    for (MeasureEntry entry1 : entries1){
 		    	for (MeasureEntry entry2 : entries2){
 		    		List<Integer> intersection = getIntersection(entry1, entry2);
-		    		double value = entry1.getprobability() * entry2.getprobability() * correction;
+		    		double value = entry1.getProbability() * entry2.getProbability() * correction;
 		    		if (value > 0.0d && !entryIsEmpty(intersection) &&!isOmegaEntry(intersection)) {
 		    			retMeasure.addEntry(intersection, value);
 		    		}
@@ -152,7 +153,7 @@ public class DempsterHandler{
 		{
 			for (MeasureEntry me2 : measure2.getMeasureEntrys()) {
 				if (this.entryIsEmpty(this.getIntersection(me1, me2))) {
-					conflict = conflict + (me1.getprobability() * me2.getprobability());
+					conflict = conflict + (me1.getProbability() * me2.getProbability());
 				}
 			}
 		}

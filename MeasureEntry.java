@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Class to represent an entry within a measure. Contains a List of values (0 or 1), a fixed size and the probability of the entry.
+ * @author Ben Fürnrohr
  */
 public class MeasureEntry{
 	
@@ -29,7 +30,7 @@ public class MeasureEntry{
 	}
 
 	/** returns the probability of the entry */
-	public double getprobability() {
+	public double getProbability() {
 		return probability;
 	}
 
@@ -39,7 +40,7 @@ public class MeasureEntry{
 	}
 
 	/** sets the probability of the entry */
-	public void setprobability(double probability) {
+	public void setProbability(double probability) {
 		this.probability = probability;
 	}
 
